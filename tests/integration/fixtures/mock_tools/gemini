@@ -1,0 +1,5 @@
+#!/bin/bash
+# Mock gemini tool
+echo "gemini version 2.3.1"
+# Return success
+exit 0

@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    container_name: ai-cli-test
+    working_dir: /home/tester/ai-cli
+    volumes:
+      - .:/home/tester/ai-cli
+    environment:
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONUNBUFFERED=1
+    command: >
+      /bin/bash -c "
+      # Run tests
+      pytest -v --cov=ai_cli tests/
+      "
+
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    container_name: ai-cli-dev
+    working_dir: /home/tester/ai-cli
+    volumes:
+      - .:/home/tester/ai-cli
+    environment:
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONUNBUFFERED=1
+    stdin_open: true
+    tty: true
+    command: /bin/bash
+
+volumes:
+  test-config:
+  test-tools:

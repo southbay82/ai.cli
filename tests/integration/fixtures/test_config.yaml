@@ -1,0 +1,37 @@
+# Test configuration for ai.cli
+
+# Global tool configurations
+global_tools:
+  q-cli:
+    path: /usr/local/bin/q
+    config_dir: /home/tester/.config/q-cli
+    version: 1.0.0
+    
+  gemini:
+    path: /usr/local/bin/gemini
+    config_dir: /home/tester/.config/gemini
+    version: 2.3.1
+    
+  windsurf:
+    path: /usr/local/bin/windsurf
+    config_dir: /home/tester/.config/windsurf
+    version: 3.2.0
+    
+  cursor:
+    path: /usr/local/bin/cursor
+    config_dir: /home/tester/.config/cursor
+    version: 4.1.5
+
+# Project configurations
+projects:
+  project1:
+    path: /home/tester/projects/project1
+    tools: [q-cli, gemini]
+    
+  project2:
+    path: /home/tester/projects/project2
+    tools: [windsurf, cursor]
+    
+  project3:
+    path: /home/tester/projects/project3
+    tools: [q-cli, windsurf, cursor]

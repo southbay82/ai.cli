@@ -1,0 +1,72 @@
+# Use a base image with Python and common development tools
+FROM python:3.10-slim
+
+# Set environment variables
+ENV DEBIAN_FRONTEND=noninteractive
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONPATH=/home/tester/ai-cli
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git \
+    curl \
+    wget \
+    unzip \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create a non-root user
+RUN useradd -m -s /bin/bash tester
+
+# Create tool directories and mock executables
+RUN mkdir -p /usr/local/bin \
+    && mkdir -p /home/tester/.config/{q-cli,gemini,windsurf,cursor} \
+    && chown -R tester:tester /home/tester/.config
+
+# Create mock configuration directories
+RUN mkdir -p /home/tester/.config/{q-cli,gemini,windsurf,cursor} \
+    && chown -R tester:tester /home/tester/.config
+
+# Create project directories and copy mock tools
+RUN mkdir -p /home/tester/projects/{project1,project2,project3} \
+    && chown -R tester:tester /home/tester/projects
+
+# Copy mock tools and make them executable
+COPY tests/integration/fixtures/mock_tools/ /tmp/mock_tools/
+RUN cd /tmp/mock_tools \
+    && for tool in q gemini windsurf cursor; do \
+        cp $tool /usr/local/bin/; \
+        chmod +x /usr/local/bin/$tool; \
+    done \
+    && rm -rf /tmp/mock_tools
+
+# Create project directories
+RUN mkdir -p /home/tester/projects/{project1,project2,project3} \
+    && chown -R tester:tester /home/tester/projects
+
+# Copy test files
+COPY tests/integration/fixtures/ /home/tester/fixtures/
+COPY tests/integration/projects/ /home/tester/projects/
+
+# Set working directory
+WORKDIR /home/tester/ai-cli
+
+# Copy project files
+COPY . .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -e .[test]
+
+# Install the package in development mode
+RUN pip install -e .[test]
+
+# Switch to non-root user
+USER tester
+WORKDIR /home/tester/ai-cli
+
+# Set up environment
+ENV PATH="/usr/local/bin:$PATH"
+ENV HOME=/home/tester
+
+# Default command (can be overridden)
+CMD ["/bin/bash"]

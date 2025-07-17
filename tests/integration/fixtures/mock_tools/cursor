@@ -1,0 +1,5 @@
+#!/bin/bash
+# Mock cursor tool
+echo "cursor version 4.1.5"
+# Return success
+exit 0

@@ -1,0 +1,17 @@
+I want to create a design spec for a cli tool which has both command switches and a menu to manage       │
+│    various AI tools such as gemini, amazon q for cli, windsurf. The tool should have the following          │
+│    capabilities.  General shared content for 'profiles', 'rules', mcps, workflows which are a series of     │
+│    prompts for an LLM that act like a 'macro' this is a windsurf specific feature bother other tools may    │
+│    have something similiar.  The tool will be public on github, and provide features to do 'global          │
+│    management of mcps', profiles. Project specific management of mcps, rules, workflows or other features   │
+│    we should consider such as hooks/call backs to agents or other tooling. The tool should be simple as     │
+│    well, it should check if the local repo is updated, if not sync it with git. It should have a simple     │
+│    'sync-all' feature will updates or installs the content the user has. It can update the                  │
+│    project/workspace specific rules, mcps, workflows to a project. This latter part is important to allow   │
+│    for project specific functionality versus global functionality.  The tool should also be driven by a     │
+│    command called 'ai.cli' which takes params or without params starts up a menu. This tool should be added │
+│     to the user's shell path. The tool should also manage a personal access token file for the MCPs or      │
+│    other tool integrations making it simpel to add new personal access tokens. This file should be deployed │
+│     to ~/.ai.cli. The tool should make backups of the various managed directies, and maintain 5 backups for │
+│     any changes to mcps, rules, workflows globaly, or within the project. store this prompt to a file, then │
+│     build the plan.

@@ -1,0 +1,5 @@
+#!/bin/bash
+# Mock windsurf tool
+echo "windsurf version 3.2.0"
+# Return success
+exit 0

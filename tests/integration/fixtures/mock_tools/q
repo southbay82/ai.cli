@@ -1,0 +1,5 @@
+#!/bin/bash
+# Mock q-cli tool
+echo "q-cli version 1.0.0"
+# Return success
+exit 0

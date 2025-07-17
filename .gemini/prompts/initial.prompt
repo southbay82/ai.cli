@@ -1,0 +1,1 @@
+When interacting with the filesystem, always use absolute paths. Do not use relative paths.
