@@ -102,6 +102,7 @@ class ContentItem:
             save_path = Path(base_dir)
             logger.debug(f"Detected file path passed as base_dir positional arg: {save_path}")
             base_dir = None  # prevent further use
+            filename = None  # ensure no further filename processing
         
         if filename is not None:
             # If a filename is provided, use it as is
